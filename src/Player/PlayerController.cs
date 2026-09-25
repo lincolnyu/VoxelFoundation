@@ -30,7 +30,8 @@ public sealed class PlayerController
 
     public void UpdateLook(float dx, float dy)
     {
-        Yaw += dx;
+        // +Yaw turns toward +X, which is screen-left in XNA's right-handed space.
+        Yaw -= dx;
         Pitch = MathHelper.Clamp(Pitch + dy, -1.54f, 1.54f);
     }
 
@@ -78,7 +79,15 @@ public sealed class PlayerController
 
         if (axis == 1)
         {
-            if (delta < 0) Grounded = true;
+            if (delta < 0)
+            {
+                // Snap feet onto the block top instead of stopping short of it.
+                var snapped = Position;
+                snapped.Y = MathF.Floor(p.Y) + 1f;
+                if (snapped.Y <= Position.Y && !Overlaps(world, snapped))
+                    Position = snapped;
+                Grounded = true;
+            }
             Velocity.Y = 0;
         }
         else if (axis == 0) Velocity.X = 0;

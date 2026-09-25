@@ -69,8 +69,9 @@ public sealed class ChunkMesh : IDisposable
                         new Vector3(wp.X + lv.X, wp.Y + lv.Y, wp.Z + lv.Z),
                         normal, uv[i]));
                 }
-                inds.Add(baseIndex); inds.Add(baseIndex + 1); inds.Add(baseIndex + 2);
-                inds.Add(baseIndex); inds.Add(baseIndex + 2); inds.Add(baseIndex + 3);
+                // FaceVerts are CCW seen from outside; XNA front faces are CW, so emit reversed.
+                inds.Add(baseIndex); inds.Add(baseIndex + 2); inds.Add(baseIndex + 1);
+                inds.Add(baseIndex); inds.Add(baseIndex + 3); inds.Add(baseIndex + 2);
             }
         }
 
