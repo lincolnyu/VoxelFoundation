@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RollForward>LatestMajor</RollForward>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <ApplicationIcon />
+    <RootNamespace>VoxelFoundation</RootNamespace>
+    <AssemblyName>VoxelFoundation</AssemblyName>
+    <MonoGamePlatform>DesktopGL</MonoGamePlatform>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data/**/*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

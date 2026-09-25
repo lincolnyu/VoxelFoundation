@@ -1,0 +1,7 @@
+{
+  "name": "brick",
+  "displayName": "Brick",
+  "solid": true,
+  "opaque": true,
+  "textures": { "all": "brick" }
+}

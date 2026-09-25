@@ -1,0 +1,11 @@
+# Kids pick from this list. Names must exist in the registry.
+# Add a line after you register a new block.
+dirt
+grass
+stone
+wood
+planks
+glass
+inn_door_locked
+guest_bed
+bell
