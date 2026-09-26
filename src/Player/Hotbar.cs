@@ -4,15 +4,15 @@ namespace VoxelFoundation.Player;
 
 public sealed class Hotbar
 {
-    public BlockId[] Slots { get; }
-    public int Selected { get; private set; }
-
     public Hotbar(IEnumerable<BlockId> ids)
     {
         Slots = ids.Take(9).ToArray();
         if (Slots.Length == 0)
             Slots = new[] { BlockId.Air };
     }
+
+    public BlockId[] Slots { get; }
+    public int Selected { get; private set; }
 
     public BlockId Current => Slots[Math.Clamp(Selected, 0, Slots.Length - 1)];
 
@@ -36,7 +36,6 @@ public static class PaletteFile
     {
         var ids = new List<BlockId>();
         if (File.Exists(path))
-        {
             foreach (var raw in File.ReadAllLines(path))
             {
                 var line = raw.Trim();
@@ -44,16 +43,15 @@ public static class PaletteFile
                 if (registry.TryGet(line, out var def) && !def.Id.IsAir)
                     ids.Add(def.Id);
             }
-        }
+
         if (ids.Count == 0)
-        {
             foreach (var d in registry.All)
             {
                 if (!d.Id.IsAir && d.Solid)
                     ids.Add(d.Id);
                 if (ids.Count >= 9) break;
             }
-        }
+
         return new Hotbar(ids);
     }
 }

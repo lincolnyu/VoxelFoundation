@@ -6,10 +6,8 @@ namespace VoxelFoundation.Render;
 
 public sealed class WorldRenderer : IDisposable
 {
-    readonly Dictionary<(int,int,int), ChunkMesh> _meshes = new();
-    readonly GraphicsDevice _gd;
-    public TextureAtlas Atlas { get; }
-    public BasicEffect Effect { get; }
+    private readonly GraphicsDevice _gd;
+    private readonly Dictionary<(int, int, int), ChunkMesh> _meshes = new();
 
     public WorldRenderer(GraphicsDevice gd, TextureAtlas atlas)
     {
@@ -28,6 +26,17 @@ public sealed class WorldRenderer : IDisposable
         Effect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(0.4f, -1f, 0.3f));
     }
 
+    public TextureAtlas Atlas { get; }
+    public BasicEffect Effect { get; }
+
+    public void Dispose()
+    {
+        foreach (var m in _meshes.Values)
+            m.Dispose();
+        Effect.Dispose();
+        Atlas.Dispose();
+    }
+
     public void Sync(WorldGrid world)
     {
         foreach (var chunk in world.Chunks)
@@ -39,6 +48,7 @@ public sealed class WorldRenderer : IDisposable
                 _meshes[key] = mesh;
                 chunk.Dirty = true;
             }
+
             if (chunk.Dirty)
                 mesh.Rebuild(_gd, world, chunk, Atlas);
         }
@@ -60,13 +70,5 @@ public sealed class WorldRenderer : IDisposable
             foreach (var mesh in _meshes.Values)
                 mesh.Draw(_gd);
         }
-    }
-
-    public void Dispose()
-    {
-        foreach (var m in _meshes.Values)
-            m.Dispose();
-        Effect.Dispose();
-        Atlas.Dispose();
     }
 }

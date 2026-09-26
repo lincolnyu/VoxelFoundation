@@ -2,9 +2,9 @@ namespace VoxelFoundation.Blocks;
 
 public sealed class BlockRegistry
 {
-    readonly Dictionary<BlockId, BlockDef> _byId = new();
-    readonly Dictionary<string, BlockDef> _byName = new(StringComparer.OrdinalIgnoreCase);
-    ushort _next = 1;
+    private readonly Dictionary<BlockId, BlockDef> _byId = new();
+    private readonly Dictionary<string, BlockDef> _byName = new(StringComparer.OrdinalIgnoreCase);
+    private ushort _next = 1;
 
     public BlockRegistry()
     {
@@ -22,13 +22,20 @@ public sealed class BlockRegistry
     public IEnumerable<BlockDef> All => _byId.Values;
     public int Count => _byId.Count;
 
-    public BlockDef Get(BlockId id) =>
-        _byId.TryGetValue(id, out var d) ? d : _byId[BlockId.Air];
+    public BlockDef Get(BlockId id)
+    {
+        return _byId.TryGetValue(id, out var d) ? d : _byId[BlockId.Air];
+    }
 
-    public BlockDef Get(string name) =>
-        _byName.TryGetValue(name, out var d) ? d : _byId[BlockId.Air];
+    public BlockDef Get(string name)
+    {
+        return _byName.TryGetValue(name, out var d) ? d : _byId[BlockId.Air];
+    }
 
-    public bool TryGet(string name, out BlockDef def) => _byName.TryGetValue(name, out def!);
+    public bool TryGet(string name, out BlockDef def)
+    {
+        return _byName.TryGetValue(name, out def!);
+    }
 
     public BlockId Register(BlockDef def)
     {
@@ -41,7 +48,10 @@ public sealed class BlockRegistry
         return def.Id;
     }
 
-    public BlockId AllocateId() => new(_next++);
+    public BlockId AllocateId()
+    {
+        return new BlockId(_next++);
+    }
 
     public BlockId RegisterNew(string name, Action<BlockDefBuilder> configure)
     {
@@ -51,22 +61,13 @@ public sealed class BlockRegistry
     }
 }
 
-public sealed class BlockDefBuilder
+public sealed class BlockDefBuilder(BlockRegistry reg, string name, BlockId id)
 {
-    readonly BlockRegistry _reg;
-    readonly string _name;
-    readonly BlockId _id;
-    readonly Dictionary<string, string> _tex = new(StringComparer.OrdinalIgnoreCase);
+    private readonly string _name = name;
+    private readonly BlockRegistry _reg = reg;
+    private readonly Dictionary<string, string> _tex = new(StringComparer.OrdinalIgnoreCase);
 
-    public BlockDefBuilder(BlockRegistry reg, string name, BlockId id)
-    {
-        _reg = reg;
-        _name = name;
-        _id = id;
-        DisplayName = name;
-    }
-
-    public string DisplayName { get; set; }
+    public string DisplayName { get; set; } = name;
     public bool Solid { get; set; } = true;
     public bool Opaque { get; set; } = true;
     public byte LightEmission { get; set; }
@@ -90,7 +91,7 @@ public sealed class BlockDefBuilder
             _tex["all"] = _name;
         return new BlockDef
         {
-            Id = _id,
+            Id = id,
             Name = _name,
             DisplayName = DisplayName,
             Solid = Solid,

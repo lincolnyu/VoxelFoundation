@@ -22,10 +22,8 @@ public static class JsonBlockLoader
 
         var tex = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         if (r.TryGetProperty("textures", out var t))
-        {
             foreach (var p in t.EnumerateObject())
                 tex[p.Name] = p.Value.GetString() ?? name;
-        }
         if (tex.Count == 0)
             tex["all"] = name;
 

@@ -10,7 +10,6 @@ public static class PackLoader
         if (!Directory.Exists(dir))
             return;
         foreach (var dll in Directory.EnumerateFiles(dir, "*.dll"))
-        {
             try
             {
                 var asm = Assembly.LoadFrom(dll);
@@ -26,6 +25,5 @@ public static class PackLoader
             {
                 services.Log.Say($"Plugin failed: {Path.GetFileName(dll)} ({ex.GetType().Name})");
             }
-        }
     }
 }

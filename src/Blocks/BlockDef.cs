@@ -8,14 +8,16 @@ public sealed class BlockDef
     public bool Solid { get; init; } = true;
     public bool Opaque { get; init; } = true;
     public byte LightEmission { get; init; }
+
     /// <summary>Atlas tile names: all / top / bottom / side / north / south / east / west.</summary>
     public required IReadOnlyDictionary<string, string> Textures { get; init; }
+
     public IBlockBehavior Behavior { get; init; } = NullBehavior.Instance;
 
     public string FaceTexture(int face)
     {
         // face: 0=-X 1=+X 2=-Y 3=+Y 4=-Z 5=+Z
-        string key = face switch
+        var key = face switch
         {
             2 => "bottom",
             3 => "top",

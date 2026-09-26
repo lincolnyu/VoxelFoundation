@@ -18,10 +18,10 @@ public static class WorldGen
         var glass = world.Registry.Get("glass").Id;
 
         const int ground = 8;
-        for (int x = -16; x < 32; x++)
-        for (int z = -16; z < 32; z++)
+        for (var x = -16; x < 32; x++)
+        for (var z = -16; z < 32; z++)
         {
-            for (int y = 0; y < ground; y++)
+            for (var y = 0; y < ground; y++)
                 world.SetBlock(new Vector3i(x, y, z), dirt);
             world.SetBlock(new Vector3i(x, ground, z), grass);
         }
@@ -29,11 +29,11 @@ public static class WorldGen
         // inn box 7x5x7 at origin
         int x0 = 2, z0 = 2, y0 = ground + 1;
         int x1 = 8, z1 = 8, y1 = ground + 5;
-        for (int x = x0; x <= x1; x++)
-        for (int z = z0; z <= z1; z++)
-        for (int y = y0; y <= y1; y++)
+        for (var x = x0; x <= x1; x++)
+        for (var z = z0; z <= z1; z++)
+        for (var y = y0; y <= y1; y++)
         {
-            bool wall = x == x0 || x == x1 || z == z0 || z == z1 || y == y1;
+            var wall = x == x0 || x == x1 || z == z0 || z == z1 || y == y1;
             if (wall)
                 world.SetBlock(new Vector3i(x, y, z), y == y1 ? wood : planks);
         }

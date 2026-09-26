@@ -12,29 +12,29 @@ public static class VoxelRaycast
     {
         hit = default;
         dir.Normalize();
-        int x = (int)MathF.Floor(origin.X);
-        int y = (int)MathF.Floor(origin.Y);
-        int z = (int)MathF.Floor(origin.Z);
+        var x = (int)MathF.Floor(origin.X);
+        var y = (int)MathF.Floor(origin.Y);
+        var z = (int)MathF.Floor(origin.Z);
 
-        int stepX = dir.X >= 0 ? 1 : -1;
-        int stepY = dir.Y >= 0 ? 1 : -1;
-        int stepZ = dir.Z >= 0 ? 1 : -1;
+        var stepX = dir.X >= 0 ? 1 : -1;
+        var stepY = dir.Y >= 0 ? 1 : -1;
+        var stepZ = dir.Z >= 0 ? 1 : -1;
 
-        float tDeltaX = dir.X == 0 ? float.PositiveInfinity : MathF.Abs(1f / dir.X);
-        float tDeltaY = dir.Y == 0 ? float.PositiveInfinity : MathF.Abs(1f / dir.Y);
-        float tDeltaZ = dir.Z == 0 ? float.PositiveInfinity : MathF.Abs(1f / dir.Z);
+        var tDeltaX = dir.X == 0 ? float.PositiveInfinity : MathF.Abs(1f / dir.X);
+        var tDeltaY = dir.Y == 0 ? float.PositiveInfinity : MathF.Abs(1f / dir.Y);
+        var tDeltaZ = dir.Z == 0 ? float.PositiveInfinity : MathF.Abs(1f / dir.Z);
 
-        float nextX = dir.X >= 0 ? MathF.Floor(origin.X) + 1 : MathF.Floor(origin.X);
-        float nextY = dir.Y >= 0 ? MathF.Floor(origin.Y) + 1 : MathF.Floor(origin.Y);
-        float nextZ = dir.Z >= 0 ? MathF.Floor(origin.Z) + 1 : MathF.Floor(origin.Z);
+        var nextX = dir.X >= 0 ? MathF.Floor(origin.X) + 1 : MathF.Floor(origin.X);
+        var nextY = dir.Y >= 0 ? MathF.Floor(origin.Y) + 1 : MathF.Floor(origin.Y);
+        var nextZ = dir.Z >= 0 ? MathF.Floor(origin.Z) + 1 : MathF.Floor(origin.Z);
 
-        float tMaxX = dir.X == 0 ? float.PositiveInfinity : (nextX - origin.X) / dir.X;
-        float tMaxY = dir.Y == 0 ? float.PositiveInfinity : (nextY - origin.Y) / dir.Y;
-        float tMaxZ = dir.Z == 0 ? float.PositiveInfinity : (nextZ - origin.Z) / dir.Z;
+        var tMaxX = dir.X == 0 ? float.PositiveInfinity : (nextX - origin.X) / dir.X;
+        var tMaxY = dir.Y == 0 ? float.PositiveInfinity : (nextY - origin.Y) / dir.Y;
+        var tMaxZ = dir.Z == 0 ? float.PositiveInfinity : (nextZ - origin.Z) / dir.Z;
 
         Vector3i last = new(x, y, z);
         float t = 0;
-        for (int i = 0; i < 256 && t <= maxDist; i++)
+        for (var i = 0; i < 256 && t <= maxDist; i++)
         {
             var p = new Vector3i(x, y, z);
             if (!world.GetBlock(p).IsAir)
@@ -43,6 +43,7 @@ public static class VoxelRaycast
                 hit = new RayHit(p, last, n, t);
                 return true;
             }
+
             last = p;
             if (tMaxX < tMaxY && tMaxX < tMaxZ)
             {
@@ -63,6 +64,7 @@ public static class VoxelRaycast
                 z += stepZ;
             }
         }
+
         return false;
     }
 }

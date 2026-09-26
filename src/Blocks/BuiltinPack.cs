@@ -11,7 +11,11 @@ public sealed class BuiltinPack : IBlockPack
 
     public void Register(BlockRegistry registry, GameServices services)
     {
-        registry.RegisterNew("dirt", b => { b.DisplayName = "Dirt"; b.TexAll("dirt"); });
+        registry.RegisterNew("dirt", b =>
+        {
+            b.DisplayName = "Dirt";
+            b.TexAll("dirt");
+        });
         registry.RegisterNew("grass", b =>
         {
             b.DisplayName = "Grass";
@@ -19,9 +23,21 @@ public sealed class BuiltinPack : IBlockPack
             b.Tex("bottom", "dirt");
             b.Tex("side", "grass_side");
         });
-        registry.RegisterNew("stone", b => { b.DisplayName = "Stone"; b.TexAll("stone"); });
-        registry.RegisterNew("wood", b => { b.DisplayName = "Wood"; b.TexAll("wood"); });
-        registry.RegisterNew("planks", b => { b.DisplayName = "Planks"; b.TexAll("planks"); });
+        registry.RegisterNew("stone", b =>
+        {
+            b.DisplayName = "Stone";
+            b.TexAll("stone");
+        });
+        registry.RegisterNew("wood", b =>
+        {
+            b.DisplayName = "Wood";
+            b.TexAll("wood");
+        });
+        registry.RegisterNew("planks", b =>
+        {
+            b.DisplayName = "Planks";
+            b.TexAll("planks");
+        });
         registry.RegisterNew("glass", b =>
         {
             b.DisplayName = "Glass";
@@ -61,9 +77,17 @@ public sealed class BuiltinPack : IBlockPack
 
 public sealed class LockedDoorBehavior : IBlockBehavior
 {
-    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void Tick(WorldGrid world, Vector3i pos, GameServices s) { }
+    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void Tick(WorldGrid world, Vector3i pos, GameServices s)
+    {
+    }
 
     public void OnUse(WorldGrid world, Vector3i pos, PlayerController player, GameServices s)
     {
@@ -73,15 +97,25 @@ public sealed class LockedDoorBehavior : IBlockBehavior
             s.Log.Say("The door creaks open.");
         }
         else
+        {
             s.Log.Say("It's locked. Ring the bell?");
+        }
     }
 }
 
 public sealed class OpenDoorBehavior : IBlockBehavior
 {
-    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void Tick(WorldGrid world, Vector3i pos, GameServices s) { }
+    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void Tick(WorldGrid world, Vector3i pos, GameServices s)
+    {
+    }
 
     public void OnUse(WorldGrid world, Vector3i pos, PlayerController player, GameServices s)
     {
@@ -92,9 +126,17 @@ public sealed class OpenDoorBehavior : IBlockBehavior
 
 public sealed class GuestBedBehavior : IBlockBehavior
 {
-    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void Tick(WorldGrid world, Vector3i pos, GameServices s) { }
+    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void Tick(WorldGrid world, Vector3i pos, GameServices s)
+    {
+    }
 
     public void OnUse(WorldGrid world, Vector3i pos, PlayerController player, GameServices s)
     {
@@ -105,9 +147,17 @@ public sealed class GuestBedBehavior : IBlockBehavior
 
 public sealed class BellBehavior : IBlockBehavior
 {
-    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void Tick(WorldGrid world, Vector3i pos, GameServices s) { }
+    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void Tick(WorldGrid world, Vector3i pos, GameServices s)
+    {
+    }
 
     public void OnUse(WorldGrid world, Vector3i pos, PlayerController player, GameServices s)
     {

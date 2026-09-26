@@ -6,16 +6,27 @@ namespace VoxelFoundation.World;
 public sealed class Chunk
 {
     public const int Size = 16;
+    private readonly BlockId[] _blocks = new BlockId[Size * Size * Size];
+
+    public Chunk(Vector3i coord)
+    {
+        Coord = coord;
+    }
 
     public Vector3i Coord { get; }
     public bool Dirty { get; set; } = true;
-    readonly BlockId[] _blocks = new BlockId[Size * Size * Size];
 
-    public Chunk(Vector3i coord) => Coord = coord;
+    public Vector3i Origin => new(Coord.X * Size, Coord.Y * Size, Coord.Z * Size);
 
-    public static int Index(int x, int y, int z) => x + Size * (z + Size * y);
+    public static int Index(int x, int y, int z)
+    {
+        return x + Size * (z + Size * y);
+    }
 
-    public BlockId Get(int x, int y, int z) => _blocks[Index(x, y, z)];
+    public BlockId Get(int x, int y, int z)
+    {
+        return _blocks[Index(x, y, z)];
+    }
 
     public bool Set(int x, int y, int z, BlockId id)
     {
@@ -26,6 +37,4 @@ public sealed class Chunk
         Dirty = true;
         return true;
     }
-
-    public Vector3i Origin => new(Coord.X * Size, Coord.Y * Size, Coord.Z * Size);
 }

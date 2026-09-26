@@ -17,8 +17,20 @@ public interface IBlockBehavior
 public sealed class NullBehavior : IBlockBehavior
 {
     public static readonly NullBehavior Instance = new();
-    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s) { }
-    public void OnUse(WorldGrid world, Vector3i pos, PlayerController player, GameServices s) { }
-    public void Tick(WorldGrid world, Vector3i pos, GameServices s) { }
+
+    public void OnPlace(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void OnBreak(WorldGrid world, Vector3i pos, BlockId id, GameServices s)
+    {
+    }
+
+    public void OnUse(WorldGrid world, Vector3i pos, PlayerController player, GameServices s)
+    {
+    }
+
+    public void Tick(WorldGrid world, Vector3i pos, GameServices s)
+    {
+    }
 }
